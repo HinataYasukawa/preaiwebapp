@@ -1,1 +1,7 @@
 /media
+feedback/__pycache__/
+feedback/migrations/
+file_upload/__pycache__/
+file_upload/migrations/
+preai/__pycache__/
+*.pyc
