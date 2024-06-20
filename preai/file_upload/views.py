@@ -12,36 +12,36 @@ import sys
 
 # ------------------------------------------------------------------
 def file_upload(request):
+    print("GGG")
     if request.method == 'POST':
+        print("FFF")
         form = UploadFileForm(request.POST, request.FILES)
+        print(form.is_valid())
         if form.is_valid():
-            sys.stderr.write("*** file_upload *** aaa ***\n")
-            handle_uploaded_file(request.FILES['file'])
+            print("AAA")
             file_obj = request.FILES['file']
-            sys.stderr.write(file_obj.name + "\n")
-            return HttpResponseRedirect('/success/url/')
+            if file_obj:
+                print("BBB")
+                handle_uploaded_file(file_obj)
+                return render(request, 'file_upload/frontpage.html', {
+                    'form': form, 'show_success_message': True
+                })
+            else:
+                return render(request, 'file_upload/frontpage.html', {
+                    'form': form, 'error_message': 'ファイルを選択していません。'
+                })
     else:
         form = UploadFileForm()
     return render(request, 'file_upload/frontpage.html', {'form': form})
 #
-#
 # ------------------------------------------------------------------
 def handle_uploaded_file(file_obj):
-    sys.stderr.write("*** handle_uploaded_file *** aaa ***\n")
-    sys.stderr.write(file_obj.name + "\n")
-    file_path = 'media/documents/' + file_obj.name 
-    sys.stderr.write(file_path + "\n")
+    print("CCC")
+    # mediaフォルダにファイルを保存する
+    file_path = os.path.join('./media', file_obj.name)
     with open(file_path, 'wb+') as destination:
         for chunk in file_obj.chunks():
-            sys.stderr.write("*** handle_uploaded_file *** ccc ***\n")
             destination.write(chunk)
-            sys.stderr.write("*** handle_uploaded_file *** eee ***\n")
-#
-# ------------------------------------------------------------------
-def success(request):
-    str_out = "Success!<p />"
-    str_out += "成功<p />"
-    return HttpResponse(str_out)
 # ------------------------------------------------------------------
 def processing(request):
     filename = request.GET.get('filename')
