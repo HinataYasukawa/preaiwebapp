@@ -1,5 +1,4 @@
-from django import forms
+from django.db import models
 
-class UploadFileForm(forms.Form):
-    title = forms.CharField(max_length=50)
-    file = forms.FileField()
+class Post(models.Model):
+    file = models.FileField()

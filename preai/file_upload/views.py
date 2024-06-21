@@ -1,24 +1,14 @@
-# file_upload/views.py
 from django.shortcuts import render, redirect
-from django.core.files.storage import FileSystemStorage
 from django.urls import reverse
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from .forms import UploadFileForm
-from django.http import HttpResponse
 import os
-import uuid
-import sys
 
-# ------------------------------------------------------------------
 def file_upload(request):
     print("GGG")
     if request.method == 'POST':
-        print("FFF")
         form = UploadFileForm(request.POST, request.FILES)
-        print(form.is_valid())
+        print("アップロードされたファイル:", request.FILES)
         if form.is_valid():
-            print("AAA")
             file_obj = request.FILES['file']
             if file_obj:
                 print("BBB")
@@ -33,8 +23,7 @@ def file_upload(request):
     else:
         form = UploadFileForm()
     return render(request, 'file_upload/frontpage.html', {'form': form})
-#
-# ------------------------------------------------------------------
+
 def handle_uploaded_file(file_obj):
     print("CCC")
     # mediaフォルダにファイルを保存する
@@ -42,7 +31,7 @@ def handle_uploaded_file(file_obj):
     with open(file_path, 'wb+') as destination:
         for chunk in file_obj.chunks():
             destination.write(chunk)
-# ------------------------------------------------------------------
+
 def processing(request):
     filename = request.GET.get('filename')
     # 解析処理を行うためのフィードバックアプリにリダイレクト
