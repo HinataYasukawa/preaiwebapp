@@ -26,7 +26,6 @@ def file_upload(request):
 
 def handle_uploaded_file(file_obj):
     print("CCC")
-    # mediaフォルダにファイルを保存する
     file_path = os.path.join('./media', file_obj.name)
     with open(file_path, 'wb+') as destination:
         for chunk in file_obj.chunks():
@@ -34,5 +33,6 @@ def handle_uploaded_file(file_obj):
 
 def processing(request):
     filename = request.GET.get('filename')
+    print(filename)
     # 解析処理を行うためのフィードバックアプリにリダイレクト
     return redirect(reverse('feedback:result') + f'?filename={filename}')

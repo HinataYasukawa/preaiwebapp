@@ -1,9 +1,6 @@
-# feedback/urls.py
 from django.urls import path
-from . import views
-
-app_name = 'feedback'
+from .views import result
 
 urlpatterns = [
-    path('result/', views.result, name='result'),
+    path('result/', result, name='result'),
 ]
