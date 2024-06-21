@@ -1,6 +1,15 @@
 /media
 feedback/__pycache__/
 feedback/migrations/
+feedback/3rdparty
+feedback/bin
+feedback/examples
+feedback/include
+feedback/lib
+feedback/LICENSE
+feedback/models
+feedback/output
+feedback/python
 file_upload/__pycache__/
 file_upload/migrations/
 preai/__pycache__/
